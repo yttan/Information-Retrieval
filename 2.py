@@ -1,23 +1,29 @@
 import re
 
-filePath1 = "As we may think.txt"
-filePath2 = "As we may ink.txt"
+filePath1 = "test1.txt"
+filePath2 = "test2.txt"
 
 def tokenize(filePath):
-    index = set()
     myFile = open(filePath, "r")
-    for line in myFile:
-        temp = re.split('\W',line)
-        for word in temp:
-            if word is '':
-                continue
-            if word.lower() in index:
-                continue
-            else:
-                index.add(word.lower())
+    text = myFile.read()
+    text = text.lower()
+    text = re.sub(r'[-]', ' ', text)
+    text = re.sub(r'[^a-z0-9\s]', '', text)
+    words = text.split()
     myFile.close()
-    return index
+    return words
+
+def cleanData(tokenlist):
+    tokens = set()
+    for token in tokenlist:
+        if token in tokens:
+            continue
+        else:
+            tokens.add(token)
+    return tokens
 
 list1 = tokenize(filePath1)
 list2 = tokenize(filePath2)
-print len(list1.intersection(list2))
+set1 = cleanData(list1)
+set2 = cleanData(list2)
+print len(set1.intersection(set2))
