@@ -1,0 +1,6 @@
+subdomains: 
+{'elms.ics': 1, 'www.ucf.ics': 1, 'honors.ics': 1, 'mhcid.ics': 13, 'netreg.ics': 1, 'support.ics': 8, 'webmail.ics': 1, 'futurehealth.ics': 4, 'checkmate.ics': 1, 'mcs.ics': 15, 'ngs.ics': 11, 'www.ics': 228, 'intranet.ics': 1, 'ugradforms.ics': 1}
+max out links page:
+http://www.ics.uci.edu/faculty/index.php
+invalid urls
+2195
