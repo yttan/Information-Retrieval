@@ -23,7 +23,7 @@ def computeWordFrequencies(tokenlist):
 
 def Print(Frequencies):
     for key, value in sorted (Frequencies.iteritems(), key = lambda (k,v):(v,k), reverse = True):
-        print "%s : %s" % (key,value)
+        print "%s, %s" % (key,value)
 
 
 t_list = tokenize(filePath)
