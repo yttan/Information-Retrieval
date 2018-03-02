@@ -33,29 +33,45 @@ def invertedIndex(rawIndex):
                 InvertedIndex[term] = [{"document": filename, "tf": tfposlist[0], "tf-idf": itf * idfMap[term], "position":tfposlist[1]}]
     return InvertedIndex
 
-
+def unique(inverted):
+    unique = 0
+    for term in inverted:
+        if len(inverted[term]) == 1 :
+            unique += 1
+    print unique
 
 def Indexer():
     dirname = "WEBPAGES_TEST/"
-    f = open(dirname + "bookkeeping.json").read()
-    bookkeeping = json.loads(f)
+    f = open(dirname + "bookkeeping.json")
+    fstr = f.read()
+    bookkeeping = json.loads(fstr)
     rawIndex = {}
     for filename in bookkeeping:
         tokens = tokenize.tokenize(dirname + filename)
         rawIndex[filename] = tokenize.tfposMap(tokens)
-    return invertedIndex(rawIndex)
+    f.close()
+    inverted =  invertedIndex(rawIndex)
+    unique(inverted)
+    fw = open("InvertedIndex.txt","w")
+    for term in inverted:
+        content = [term,"    ",str(inverted[term]),"\n"]
+        fw.writelines(content)
+    fw.close()
+    return inverted
 
 
-print Indexer()
-# rawIndex = {}
-# tokens = tokenize.tokenize("test1.txt")
-# rawIndex["test1.txt"] = tokenize.tfposMap(tokens)
-# tokens = tokenize.tokenize("test2.txt")
-# rawIndex["test2.txt"] = tokenize.tfposMap(tokens)
-# tokens = tokenize.tokenize("test3.txt")
-# rawIndex["test3.txt"] = tokenize.tfposMap(tokens)
-# myindex = invertedIndex(rawIndex)
-# for k in myindex:
-#     print k
-#     print myindex[k]
+Indexer()
+#rawIndex = {}
+#tokens = tokenize.tokenize("test1.txt")
+#rawIndex["test1.txt"] = tokenize.tfposMap(tokens)
+#tokens = tokenize.tokenize("test2.txt")
+#rawIndex["test2.txt"] = tokenize.tfposMap(tokens)
+#tokens = tokenize.tokenize("test3.txt")
+#rawIndex["test3.txt"] = tokenize.tfposMap(tokens)
 #
+#inverted =  invertedIndex(rawIndex)
+#fw = open("InvertedIndex.txt","w")
+#for term in inverted:
+#    content = [term,"    ",str(inverted[term]),"\n"]
+#    fw.writelines(content)
+#fw.close()
