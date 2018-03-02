@@ -30,9 +30,15 @@ def wordPositions(tokenlist):
     return positionMap
 
 def tfposMap(tokenlist):
-    tfMap = computeWordFrequencies(tokenlist)
-    posMap = wordPositions(tokenlist)
     tfposMap = {}
-    for term in tfMap:
-        tfposMap[term] = [tfMap[term],posMap[term]]
+    N = len(tokenlist)
+    for i in range(N):
+        token = tokenlist[i]
+        if tfposMap.has_key(token):
+            tfposMap[token][0] += 1
+            tfposMap[token][1].append(i)
+        else:
+            tfposMap[token] = []
+            tfposMap[token].append(1)
+            tfposMap[token].append([i])
     return tfposMap
