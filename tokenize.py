@@ -9,6 +9,13 @@ def tokenize(filePath):
     myFile.close()
     return words
 
+def tokenizequery(query):
+    text = query.lower()
+    text = re.sub(r'[-]', ' ', text)
+    text = re.sub(r'[^a-z0-9\s]', '', text)
+    words = text.split()
+    return words
+
 def computeWordFrequencies(tokenlist):
     freqMap = {}
     for token in tokenlist:

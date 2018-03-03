@@ -27,10 +27,10 @@ def invertedIndex(rawIndex):
         for term, tfposlist in rawIndex[filename].iteritems():
             if InvertedIndex.has_key(term):
                 itf = math.log10(tfposlist[0] + 1)
-                InvertedIndex[term].append({"document": filename, "tf": tfposlist[0], "tf-idf": itf * idfMap[term], "position":tfposlist[1]})
+                InvertedIndex[term].append({"doc": filename, "tf-idf": itf * idfMap[term], "pos":tfposlist[1]})
             else:
                 itf = math.log10(tfposlist[0] + 1)
-                InvertedIndex[term] = [{"document": filename, "tf": tfposlist[0], "tf-idf": itf * idfMap[term], "position":tfposlist[1]}]
+                InvertedIndex[term] = [{"doc": filename, "tf-idf": itf * idfMap[term], "pos":tfposlist[1]}]
     return InvertedIndex
 
 def unique(inverted):
@@ -52,15 +52,18 @@ def Indexer():
     f.close()
     inverted =  invertedIndex(rawIndex)
     unique(inverted)
-    fw = open("InvertedIndex.txt","w")
-    for term in inverted:
-        content = [term,"    ",str(inverted[term]),"\n"]
-        fw.writelines(content)
-    fw.close()
-    return inverted
+    with open('InvertedIndex.json', 'w') as outfile:
+        json.dump(inverted, outfile)
+    #fw = open("InvertedIndex.txt","w")
+    #for term in inverted:
+    #    content = [term," ",str(inverted[term]),"\n"]
+    #    fw.writelines(content)
+    #fw.close()
+    #return inverted
 
 
-Indexer()
+if __name__ == '__main__':
+    Indexer()
 #rawIndex = {}
 #tokens = tokenize.tokenize("test1.txt")
 #rawIndex["test1.txt"] = tokenize.tfposMap(tokens)
