@@ -3,6 +3,7 @@ import json
 import math
 import sys
 
+# read from inverted index and return scores of a query
 def getScore(query):
     with open('InvertedIndex.json') as json_file:
         data = json.load(json_file)
@@ -20,9 +21,9 @@ def getScore(query):
             print "term "+ word + " is not in index"
     return pages
 
-
+# get the URLs of the pages
 def PageLink(key):
-    dirname = "WEBPAGES_TEST/"
+    dirname = "WEBPAGES_CLEAN/"
     f = open(dirname + "bookkeeping.json")
     fstr = f.read()
     bookkeeping = json.loads(fstr)
@@ -30,17 +31,14 @@ def PageLink(key):
     f.close()
     return page
 
+# return the top 5 pages 
 def search(query):
     results = getScore(query)
-    #pageLinks = []
-    #docs = []
     i = 0
     limit = 5
     for key, value in sorted (results.iteritems(), key = lambda (k,v):(v,k), reverse = True):
         if i< limit:
             print PageLink(key)
-            #docs.append(key)
-            #pageLinks.append(PageLink(key))
             i+=1
         else:
             break

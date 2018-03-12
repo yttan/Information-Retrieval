@@ -1,7 +1,6 @@
 subdomains: 
-{'honors.ics': 1, 'mhcid.ics': 8, 'futurehealth.ics': 4, 'mcs.ics': 10, 'www.ics': 74, 'ugradforms.ics': 1, 'sconce.ics': 1}
+{'elms.ics': 1, 'honors.ics': 1, 'mhcid.ics': 5, 'netreg.ics': 1, 'www.ics': 78, 'ugradforms.ics': 1}
 max out links page:
-http://www.ics.uci.edu/grad/policies/index
-105
+http://www.ics.uci.edu/grad/policies/index.php
 invalid urls
-1398
+1292

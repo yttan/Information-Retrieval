@@ -11,12 +11,12 @@ from urlparse import urlparse, parse_qs, urljoin
 from uuid import uuid4
 subdomains = {}
 invalidcount = 0
-maxpage = ""
+maxpage = None
 maxoutcount = 0
 logger = logging.getLogger(__name__)
 LOG_HEADER = "[CRAWLER]"
 #TRAP_POOL = {"calendar.ics.uci.edu"}
-TRAP_POOL = {"calendar.ics.uci.edu","tippersweb.ics.uci.edu/research","vision.ics.uci.edu/datasets/db.all.sift","www.ics.uci.edu/~kai.zheng","www.ics.uci.edu/%7E","www.ics.uci.edu/%7e","www.ics.uci.edu/~dsm/dyn/release/files/"}
+TRAP_POOL = {"calendar.ics.uci.edu","tippersweb.ics.uci.edu/research","vision.ics.uci.edu/datasets/db.all.sift","www.ics.uci.edu/informatics/news/news_2007.php","www.ics.uci.edu/~franz","www.ics.uci.edu/~rickl","www.ics.uci.edu/~irishabh","www.ics.uci.edu/facebook","www.ics.uci.edu/computerscience/sitemap.php","seal.ics.uci.edu/projects/covert/GooglePlay_ICC_allSols.txt","seal.ics.uci.edu/projects/covert/Covert-Web-1.0.war","www.ics.uci.edu/computerscience/news/news_2006.php","www.ics.uci.edu/ugrad/policies/Computer_Acct_Backup.php","vision.ics.uci.edu/people/34.html"}
 @Producer(Ytan5Link)
 @GetterSetter(OneYtan5UnProcessedLink)
 @ServerTriggers(add_server_copy, get_downloaded_content)
@@ -42,7 +42,6 @@ class CrawlerFrame(IApplication):
         unprocessed_links = self.frame.get_new(OneYtan5UnProcessedLink)
         if unprocessed_links:
             link = unprocessed_links[0]
-            
             print "Got a link to download:", link.full_url
             downloaded = link.download()
             myurl = urlparse(link.full_url)
@@ -56,7 +55,7 @@ class CrawlerFrame(IApplication):
             else:
                 subdomains[subdomain] += 1
             f = open("result.txt","w")
-            fcontent = ["subdomains: ","\n",str(subdomains),"\n","max out links page:","\n",str(maxpage),"\n",str(maxoutcount),"\n","invalid urls","\n",str(invalidcount)]
+            fcontent = ["subdomains: ","\n",str(subdomains),"\n","max out links page:","\n",str(maxpage),"\n","invalid urls","\n",str(invalidcount)]
             f.writelines(fcontent)
             f.close()
             for l in links:
@@ -115,7 +114,6 @@ def is_valid(url):
             return False
     if url.__contains__('?'):
         return False
-  
     if url.__contains__("../"):
         return False
     #if not (url.endswith(".html") or url.endswith(".xml") or url.endswith(".php")):
@@ -126,7 +124,7 @@ def is_valid(url):
     try:
         return ".ics.uci.edu" in parsed.hostname \
             and not re.match(".*\.(css|js|bmp|gif|jpe?g|ico" + "|png|tiff?|mid|mp2|mp3|mp4"\
-            + "|wav|avi|mov|mpeg|ram|m4v|mkv|ogg|ogv|pdf|txt|war|apk" \
+            + "|wav|avi|mov|mpeg|ram|m4v|mkv|ogg|ogv|pdf" \
             + "|ps|eps|tex|ppt|pptx|doc|docx|xls|xlsx|names|data|dat|exe|bz2|tar|msi|bin|7z|psd|dmg|iso|epub|dll|cnf|tgz|sha1" \
             + "|thmx|mso|arff|rtf|jar|csv"\
             + "|rm|smil|wmv|swf|wma|zip|rar|gz)$", parsed.path.lower())

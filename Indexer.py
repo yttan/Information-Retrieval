@@ -40,8 +40,8 @@ def unique(inverted):
             unique += 1
     print unique
 
-def Indexer():
-    dirname = "WEBPAGES_TEST/"
+def Index():
+    dirname = "WEBPAGES_CLEAN/"
     f = open(dirname + "bookkeeping.json")
     fstr = f.read()
     bookkeeping = json.loads(fstr)
@@ -59,11 +59,11 @@ def Indexer():
     #    content = [term," ",str(inverted[term]),"\n"]
     #    fw.writelines(content)
     #fw.close()
-    #return inverted
+    return inverted
 
 
 if __name__ == '__main__':
-    Indexer()
+    Index()
 #rawIndex = {}
 #tokens = tokenize.tokenize("test1.txt")
 #rawIndex["test1.txt"] = tokenize.tfposMap(tokens)
