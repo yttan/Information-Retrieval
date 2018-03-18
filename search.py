@@ -3,10 +3,17 @@ import json
 import math
 import sys
 
+with open('InvertedIndex.json') as json_file:
+    data = json.load(json_file)
+
+dirname = "WEBPAGES_CLEAN/"
+f = open(dirname + "bookkeeping.json")
+fstr = f.read()
+bookkeeping = json.loads(fstr)
+f.close()
 # read from inverted index and return scores of a query
 def getScore(query):
-    with open('InvertedIndex.json') as json_file:
-        data = json.load(json_file)
+    global data
     words = tokenize.tokenizequery(query)
     pages = {}
     for word in words:
@@ -23,15 +30,11 @@ def getScore(query):
 
 # get the URLs of the pages
 def PageLink(key):
-    dirname = "WEBPAGES_CLEAN/"
-    f = open(dirname + "bookkeeping.json")
-    fstr = f.read()
-    bookkeeping = json.loads(fstr)
+    global bookkeeping
     page = bookkeeping[key]
-    f.close()
     return page
 
-# return the top 5 pages 
+# return the top 5 pages
 def search(query):
     results = getScore(query)
     i = 0
