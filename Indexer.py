@@ -23,6 +23,8 @@ def invertedIndex(rawIndex):
     for term in dfMap:
         idfMap[term] = math.log10( float(N) / dfMap[term])
     InvertedIndex = {}
+    with open('idfMap.json', 'w') as outfile:
+        json.dump(idfMap, outfile)
     for filename in rawIndex:
         for term, tfposlist in rawIndex[filename].iteritems():
             if InvertedIndex.has_key(term):
@@ -54,27 +56,8 @@ def Index():
     unique(inverted)
     with open('InvertedIndex.json', 'w') as outfile:
         json.dump(inverted, outfile)
-    #fw = open("InvertedIndex.txt","w")
-    #for term in inverted:
-    #    content = [term," ",str(inverted[term]),"\n"]
-    #    fw.writelines(content)
-    #fw.close()
     return inverted
 
 
 if __name__ == '__main__':
     Index()
-#rawIndex = {}
-#tokens = tokenize.tokenize("test1.txt")
-#rawIndex["test1.txt"] = tokenize.tfposMap(tokens)
-#tokens = tokenize.tokenize("test2.txt")
-#rawIndex["test2.txt"] = tokenize.tfposMap(tokens)
-#tokens = tokenize.tokenize("test3.txt")
-#rawIndex["test3.txt"] = tokenize.tfposMap(tokens)
-#
-#inverted =  invertedIndex(rawIndex)
-#fw = open("InvertedIndex.txt","w")
-#for term in inverted:
-#    content = [term,"    ",str(inverted[term]),"\n"]
-#    fw.writelines(content)
-#fw.close()
