@@ -6,7 +6,7 @@ import sys
 with open('InvertedIndex.json') as json_file:
     data = json.load(json_file)
 
-dirname = "WEBPAGES_CLEAN/"
+dirname = "WEBPAGES_TEST/"
 f = open(dirname + "bookkeeping.json")
 fstr = f.read()
 bookkeeping = json.loads(fstr)

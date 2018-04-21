@@ -43,7 +43,7 @@ def unique(inverted):
     print unique
 
 def Index():
-    dirname = "WEBPAGES_CLEAN/"
+    dirname = "WEBPAGES_TEST/"
     f = open(dirname + "bookkeeping.json")
     fstr = f.read()
     bookkeeping = json.loads(fstr)
